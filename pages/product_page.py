@@ -4,7 +4,14 @@ from .locators import ProductPageLocators
 
 class ProductPage(BasePage):
 
-    def add_product_to_basket(self):
+    def only_add_product_to_basket(self):
+        self.should_be_button_for_add_to_basket()
+
+        button_add_basket = self.browser.find_element(*ProductPageLocators.BASKET_ADD)
+        button_add_basket.click()
+        self.solve_quiz_and_get_code()
+
+    def add_product_to_basket_with_check_basket(self):
         self.should_be_button_for_add_to_basket()
 
         button_add_basket = self.browser.find_element(*ProductPageLocators.BASKET_ADD)
@@ -18,13 +25,7 @@ class ProductPage(BasePage):
                       self.check_name_book_in_basket,
                       self.check_price_basket]
 
-        check_counter = 0
-        for method in check_list:
-            check_method = self.call_function_with_try_exception(method)
-            check_counter += check_method
-
-        if check_counter > 0:
-            raise ValueError(f"QUANTITY FAILED TESTS: {check_counter}")
+        self.run_test_with_multy_methods(check_list)
 
     def should_be_button_for_add_to_basket(self):
         assert self.is_element_present(*ProductPageLocators.BASKET_ADD),\
@@ -57,5 +58,13 @@ class ProductPage(BasePage):
         basket_price = self.browser.find_element(*ProductPageLocators.PRICE_BASKET).text
         assert book_price == basket_price,\
             f"Book price '{book_price}' is no equal basket price '{basket_price}'"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.NAME_BOOK_IN_BASKET), \
+            "Success message is presented, but should not be"
+
+    def should_not_be_disappeared_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.NAME_BOOK_IN_BASKET), \
+            "Success message should be disappeared, but it is presented"
 
 
