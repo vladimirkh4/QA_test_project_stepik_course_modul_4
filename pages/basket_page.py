@@ -1,8 +1,16 @@
 from .base_page import BasePage
-from .locators import BasketPageLocators
+from .locators import BasketPageLocators, BasePageLocators
 
 
 class BasketPage(BasePage):
+    MESSAGES_DICT = {'ru': 'Ваша корзина пуста',
+                     'uk': 'Ваш кошик пустий.',
+                     'en-gb': 'Your basket is empty.',
+                     'es': 'Tu carrito esta vacío.',
+                     'fr': 'Votre panier est vide.',
+                     'it': 'Il tuo carrello è vuoto.',
+                     'fi': 'Korisi on tyhjä',
+                     'de': 'Ihr Warenkorb ist leer.'}
 
     def check_basket_with_multy_methods(self):
         check_list = [self.should_not_be_product_in_basket,
@@ -21,5 +29,8 @@ class BasketPage(BasePage):
 
     def check_message_about_basket_empty_for_ru_content(self):
         message = self.browser.find_element(*BasketPageLocators.MESSAGE_ABOUT_EMPTY).text
-        assert "Ваша корзина пуста" in message,\
-            f"Message({message}) no content 'Ваша корзина пуста'"
+        language = self.browser.find_element(*BasePageLocators.LANGUAGE).get_attribute('value')
+        frase_about_basket_empty = self.MESSAGES_DICT.get(language, 'Your basket is empty.')
+
+        assert frase_about_basket_empty in message,\
+            f"Message({message}) no content '{frase_about_basket_empty}'"
