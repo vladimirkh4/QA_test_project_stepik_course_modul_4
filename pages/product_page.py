@@ -4,19 +4,15 @@ from .locators import ProductPageLocators
 
 class ProductPage(BasePage):
 
-    def only_add_product_to_basket(self):
+    def add_product_to_basket(self):
         self.should_be_button_for_add_to_basket()
 
         button_add_basket = self.browser.find_element(*ProductPageLocators.BASKET_ADD)
         button_add_basket.click()
         self.solve_quiz_and_get_code()
 
-    def add_product_to_basket_with_check_basket(self):
-        self.should_be_button_for_add_to_basket()
-
-        button_add_basket = self.browser.find_element(*ProductPageLocators.BASKET_ADD)
-        button_add_basket.click()
-        self.solve_quiz_and_get_code()
+    def check_form_with_multy_message_about_add_to_basket(self):
+        self.add_product_to_basket()
 
         check_list = [self.should_be_massage_about_add_to_basket,
                       self.should_be_massage_with_price_basket,
