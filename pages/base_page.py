@@ -13,6 +13,8 @@ class BasePage():
         self.url = url
         self.browser.implicitly_wait(timeout)
 
+    # метод для вызова методов содержащих assert с обработкой исключений
+    # используется для корректной работы метода run_test_with_multy_methods
     def call_function_with_try_exception(self, func):
         try:
             func()
@@ -61,6 +63,10 @@ class BasePage():
     def open(self):
         self.browser.get(self.url)
 
+    # метод для запуска методов содержащих несколько последовательных проверок с использованием assert
+    # нужен для того чтобы при выбросе исключения одной из проверок, отработали все последующие проверки
+    # после отработки всех проверок, если хотя бы одна заквершилась исключением,
+    # метод выбрасывает исключение ValueError c информацией о количестве проверок завершившихся неудачно
     def run_test_with_multy_methods(self, methods_list):
         check_counter = 0
         for method in methods_list:
