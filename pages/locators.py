@@ -2,11 +2,12 @@ from selenium.webdriver.common.by import By
 
 
 class BasePageLocators():
+    BASKET_LINK = (By.CSS_SELECTOR, ".btn-group a.btn.btn-default")
+    LANGUAGE = (By.CSS_SELECTOR, '[name="language"] [selected="selected"]')
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     # LOGIN_LINK = (By.CSS_SELECTOR, "#registration_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
-    BASKET_LINK = (By.CSS_SELECTOR, ".btn-group a.btn.btn-default")
-    LANGUAGE = (By.CSS_SELECTOR, '[name="language"] [selected="selected"]')
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
 
 
 class BasketPageLocators():
@@ -17,6 +18,10 @@ class BasketPageLocators():
 class LoginPageLocators():
     LOGIN_FORM = (By.ID, 'login_form')
     REGISTER_FORM = (By.ID, 'register_form')
+    EMAIL = (By.ID, 'id_registration-email')
+    PASSWORD = (By.ID, 'id_registration-password1')
+    PASSWORD_REPEAT = (By.ID, 'id_registration-password2')
+    REGISTER_BUTTON = (By.NAME, 'registration_submit')
 
 
 class ProductPageLocators():
