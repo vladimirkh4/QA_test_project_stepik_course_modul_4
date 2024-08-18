@@ -11,6 +11,8 @@ class ProductPage(BasePage):
         button_add_basket.click()
         self.solve_quiz_and_get_code()
 
+    # тест формы сообщения появляющейся после добавления продукта в корзину
+    # с последовательным использованием нескольких проверочных методов
     def check_form_with_multy_message_about_add_to_basket(self):
         self.add_product_to_basket()
 
