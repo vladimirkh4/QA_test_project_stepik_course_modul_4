@@ -70,6 +70,10 @@ class BasePage():
         if check_counter > 0:
             raise ValueError(f"QUANTITY FAILED TESTS: {check_counter} FROM {len(methods_list)}")
 
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON),\
+            "User icon is not presented,probably unauthorised user"
+
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK),\
             "Login link is not presented"
