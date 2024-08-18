@@ -3,7 +3,7 @@ from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
 from .pages.basket_page import BasketPage
 
-@pytest.mark.skip
+
 @pytest.mark.login_guest
 class TestLoginFromMainPage():
     LINK = "http://selenium1py.pythonanywhere.com/"
@@ -30,6 +30,3 @@ def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
 
     basket_page = BasketPage(browser, browser.current_url)
     basket_page.check_basket_with_multy_methods()
-
-
-
