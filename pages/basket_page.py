@@ -3,6 +3,7 @@ from .locators import BasketPageLocators, BasePageLocators
 
 
 class BasketPage(BasePage):
+    # словарь содержащий сообщения о том, что корзина пуста на разных языках
     MESSAGES_DICT = {'ru': 'Ваша корзина пуста',
                      'uk': 'Ваш кошик пустий.',
                      'en-gb': 'Your basket is empty.',
@@ -27,6 +28,7 @@ class BasketPage(BasePage):
         assert self.is_element_present(*BasketPageLocators.MESSAGE_ABOUT_EMPTY),\
             "Message about basket epmty is not presented"
 
+    # проверка о том, что сообщение содержит фразу "Ваша корзина пуста" с учетом языка интерфейса
     def check_message_about_basket_empty_for_ru_content(self):
         message = self.browser.find_element(*BasketPageLocators.MESSAGE_ABOUT_EMPTY).text
         language = self.browser.find_element(*BasePageLocators.LANGUAGE).get_attribute('value')
